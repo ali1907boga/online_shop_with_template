@@ -1,0 +1,19 @@
+{% extends 'template/base.html' %}
+{% block body %}
+
+    {% for d in data %}
+     <a href="{% url 'home:detail' d.id %}"><img style="width: 40px;height: 80px" src="{{  d.product.image.url  }}"></a>
+     {{ d.product.name }}
+        {{ d.order.create }}
+        {% if d.order.paid == True %}
+            <p style="color: green">paid</p>
+        {% else %}
+            <p style="color: red">not paid</p>
+
+
+        {% endif %}
+
+
+    {% endfor %}
+
+{% endblock %}

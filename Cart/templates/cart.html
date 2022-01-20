@@ -1,0 +1,81 @@
+{% extends 'template/base.html' %}
+
+{% block body %}
+
+    <div class="container">
+
+<div class="row">
+      <table class="table">
+  <thead>
+    <tr>
+        <th scope="col1">#</th>
+        <th scope="col1">Image</th>
+        <th scope="col1">product</th>
+        <th scope="col1">price</th>
+        <th scope="col1">quantity</th>
+        <th scope="col1">total_price</th>
+        <th scope="col1">remove</th>
+
+
+
+
+    </tr>
+  </thead>
+  <tbody>
+
+  {% for c in cart %}
+  <tr>
+      <th scope="row">{{ forloop.counter }}</th>
+      <td><img src="{{ c.product.image.url }}" style="width: 130px;height: 150px;"></td>
+      <td>{{ c.product.name }}</td>
+  <td>{{ c.product.total_price }}</td>
+  <td>{{ c.quantity}}</td>
+
+
+
+
+
+
+
+
+
+    <td>
+        {% if c.product.status == 'None'%}
+
+            {% widthratio c.product.total_price 1 c.quantity %}
+        {% endif %}
+
+    </td>
+    <td>
+    <a href="{% url 'cart:remove_cart' c.id %}"><i class="fa fa-trash" style="color: blue"></i></a>
+    </td>
+    </tr>
+
+
+  {% endfor %}
+  <tr>
+      <td style="font-size: 30px">total:</td>
+      <td style="color: green ;font-size: 30px;">{{ total }}</td>
+
+
+  </tr>
+
+  </tbody>
+
+</table>
+<form method="post" action="{% url 'order:order_create' %}">
+    {% csrf_token %}
+    {{ order_form.as_p }}
+
+
+<button>submit order</button>
+</form>
+
+
+</div>
+
+
+
+    </div>
+
+{% endblock %}
